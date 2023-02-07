@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "tf-state-bucket" {
-  bucket = "iscore-terraform-state"
+  bucket = "iscore-terraform-state-manager"
   object_lock_enabled = true
 
 }
