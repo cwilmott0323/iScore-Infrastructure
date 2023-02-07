@@ -29,10 +29,10 @@ resource "aws_amplify_app" "iscore-amplify" {
     condition = null
   }
 
-  access_token = "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"
+  access_token = "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"
 
   environment_variables = {
-    ENV = "test"
+    ENV = "iScore"
   }
 }
 
