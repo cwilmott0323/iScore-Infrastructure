@@ -17,7 +17,7 @@ resource "aws_vpc_ipam_pool_cidr" "iscore-ips-cidr" {
 
 resource "aws_vpc" "iscore-vpc" {
   ipv4_ipam_pool_id   = aws_vpc_ipam_pool.iscore-ips.id
-  ipv4_netmask_length = 24
+  ipv4_netmask_length = 16
   depends_on = [
     aws_vpc_ipam_pool_cidr.iscore-ips-cidr
   ]

@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "tf-state-bucket" {
-  bucket = "iscore-terraform-state-manager"
+  bucket              = "iscore-terraform-state-manager"
   object_lock_enabled = true
 
 }
@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "allow_access_from_another_account" {
     }
 
     effect = "Deny"
-    sid = "DenyOutsideIPfromBucket"
+    sid    = "DenyOutsideIPfromBucket"
 
     actions = [
       "s3:ListBucket",

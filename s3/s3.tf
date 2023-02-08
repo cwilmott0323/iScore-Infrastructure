@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "iscore-media" {
-  bucket = "iscore-media"
+  bucket              = "iscore-media"
   object_lock_enabled = true
 
 }
@@ -65,9 +65,9 @@ resource "aws_s3_object" "countries-top-level" {
 }
 
 resource "aws_s3_object" "countries" {
-  for_each   = toset(var.countries)
-  bucket = aws_s3_bucket.iscore-media.id
-  acl    = "public-read"
-  key    = "${aws_s3_object.countries-top-level.key}/${each.key}/"
-  source = "/dev/null"
+  for_each = toset(var.countries)
+  bucket   = aws_s3_bucket.iscore-media.id
+  acl      = "public-read"
+  key      = "${aws_s3_object.countries-top-level.key}/${each.key}/"
+  source   = "/dev/null"
 }

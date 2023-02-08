@@ -23,9 +23,9 @@ resource "aws_amplify_app" "iscore-amplify" {
   EOT
 
   custom_rule {
-    source = "</^[^.]+$|\\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|ttf)$)([^.]+$)/>"
-    status = "200"
-    target = "/index.html"
+    source    = "</^[^.]+$|\\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|ttf)$)([^.]+$)/>"
+    status    = "200"
+    target    = "/index.html"
     condition = null
   }
 

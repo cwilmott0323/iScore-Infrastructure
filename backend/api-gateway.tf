@@ -7,11 +7,11 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
     },
     //"host" : "sj9klp6ugk.execute-api.us-east-2.amazonaws.com",
     "basePath" : "/dev",
-    "schemes" : [ "https" ],
+    "schemes" : ["https"],
     "paths" : {
       "/accounts-create" : {
         "x-amazon-apigateway-any-method" : {
-          "produces" : [ "application/json" ],
+          "produces" : ["application/json"],
           "responses" : {
             "200" : {
               "description" : "200 response",
@@ -36,7 +36,7 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
       },
       "/accounts-login" : {
         "x-amazon-apigateway-any-method" : {
-          "produces" : [ "application/json" ],
+          "produces" : ["application/json"],
           "responses" : {
             "200" : {
               "description" : "200 response",
@@ -61,8 +61,8 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
       },
       "/accounts/me" : {
         "options" : {
-          "consumes" : [ "application/json" ],
-          "produces" : [ "application/json" ],
+          "consumes" : ["application/json"],
+          "produces" : ["application/json"],
           "responses" : {
             "200" : {
               "description" : "200 response",
@@ -101,7 +101,7 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
           }
         },
         "x-amazon-apigateway-any-method" : {
-          "produces" : [ "application/json" ],
+          "produces" : ["application/json"],
           "responses" : {
             "200" : {
               "description" : "200 response",
@@ -126,7 +126,7 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
       },
       "/verify" : {
         "x-amazon-apigateway-any-method" : {
-          "produces" : [ "application/json" ],
+          "produces" : ["application/json"],
           "responses" : {
             "200" : {
               "description" : "200 response",
