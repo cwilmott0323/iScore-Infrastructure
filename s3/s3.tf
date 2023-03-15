@@ -1,7 +1,40 @@
+locals {
+  s3_folders = flatten([
+    for country, cities in var.countries: [
+      for city, activities in cities: [
+      for activity in activities: "${country}/${city}/Activities/${activity}"
+      ]
+    ]
+  ])
+
+  s3_general = flatten([
+    for country, cities in var.countries: country
+  ])
+
+  s3_country_general = flatten([
+    for country, cities in var.countries: country
+  ])
+
+  s3_city_general = flatten([
+    for country, cities in var.countries: [
+    for city, activity in cities: "${country}/${city}"
+    ]
+  ])
+}
+
 resource "aws_s3_bucket" "iscore-media" {
   bucket              = "iscore-media"
   object_lock_enabled = true
+}
 
+resource "aws_s3_bucket" "iscore-users" {
+  bucket              = "iscore-users"
+  object_lock_enabled = true
+}
+
+resource "aws_s3_bucket" "iscore-api-binary" {
+  bucket              = "iscore-api-binary"
+  object_lock_enabled = true
 }
 
 #resource "aws_s3_bucket_policy" "block" {
@@ -64,10 +97,42 @@ resource "aws_s3_object" "countries-top-level" {
   source = "/dev/null"
 }
 
-resource "aws_s3_object" "countries" {
-  for_each = toset(var.countries)
+resource "aws_s3_object" "s3_folders" {
+  for_each = toset(local.s3_folders)
   bucket   = aws_s3_bucket.iscore-media.id
   acl      = "public-read"
   key      = "${aws_s3_object.countries-top-level.key}/${each.key}/"
   source   = "/dev/null"
+}
+
+resource "aws_s3_object" "s3_general" {
+  for_each = toset(local.s3_general)
+  bucket   = aws_s3_bucket.iscore-media.id
+  acl      = "public-read"
+  key      = "${aws_s3_object.countries-top-level.key}/${each.key}/General/"
+  source   = "/dev/null"
+}
+
+resource "aws_s3_object" "country_general" {
+  for_each = toset(local.s3_country_general)
+  bucket = aws_s3_bucket.iscore-media.id
+  key    = "${aws_s3_object.countries-top-level.key}/${each.key}/General/${each.key}"
+  source = "media/countries/${each.key}/general/${each.key}"
+  etag = filemd5("media/countries/${each.key}/general/${each.key}")
+}
+
+resource "aws_s3_object" "city_general" {
+  for_each = toset(local.s3_city_general)
+  bucket = aws_s3_bucket.iscore-media.id
+  key    = "${aws_s3_object.countries-top-level.key}/${split("/",each.key)[0]}/${split("/",each.key)[1]}/${split("/",each.key)[1]}"
+  source = "media/countries/${split("/",each.key)[0]}/cities/${split("/",each.key)[1]}/general/${split("/",each.key)[1]}"
+  etag = filemd5("media/countries/${split("/",each.key)[0]}/cities/${split("/",each.key)[1]}/general/${split("/",each.key)[1]}")
+}
+
+resource "aws_s3_object" "activities_general" {
+  for_each = toset(local.s3_folders)
+  bucket = aws_s3_bucket.iscore-media.id
+  key    = "${aws_s3_object.countries-top-level.key}/${split("/",each.key)[0]}/${split("/",each.key)[1]}/Activities/${split("/",each.key)[3]}/${split("/",each.key)[3]}"
+  source = "media/countries/${split("/",each.key)[0]}/cities/${split("/",each.key)[1]}/activities/${split("/",each.key)[3]}/${split("/",each.key)[3]}"
+  etag = filemd5("media/countries/${split("/",each.key)[0]}/cities/${split("/",each.key)[1]}/activities/${split("/",each.key)[3]}/${split("/",each.key)[3]}")
 }

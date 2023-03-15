@@ -5,13 +5,13 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
       "version" : "2023-02-04T03:14:51Z",
       "title" : "iScore-Gateway"
     },
-    //"host" : "sj9klp6ugk.execute-api.us-east-2.amazonaws.com",
+    "host" : "dbgr711hg7.execute-api.us-east-2.amazonaws.com",
     "basePath" : "/dev",
-    "schemes" : ["https"],
+    "schemes" : [ "https" ],
     "paths" : {
       "/accounts-create" : {
         "x-amazon-apigateway-any-method" : {
-          "produces" : ["application/json"],
+          "produces" : [ "application/json" ],
           "responses" : {
             "200" : {
               "description" : "200 response",
@@ -21,8 +21,8 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
             }
           },
           "x-amazon-apigateway-integration" : {
-            "httpMethod" : "POST",
             "uri" : "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:025810692662:function:iScore-API/invocations",
+            "httpMethod" : "POST",
             "responses" : {
               "default" : {
                 "statusCode" : "200"
@@ -36,7 +36,7 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
       },
       "/accounts-login" : {
         "x-amazon-apigateway-any-method" : {
-          "produces" : ["application/json"],
+          "produces" : [ "application/json" ],
           "responses" : {
             "200" : {
               "description" : "200 response",
@@ -46,8 +46,8 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
             }
           },
           "x-amazon-apigateway-integration" : {
-            "httpMethod" : "POST",
             "uri" : "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:025810692662:function:iScore-API/invocations",
+            "httpMethod" : "POST",
             "responses" : {
               "default" : {
                 "statusCode" : "200"
@@ -61,8 +61,8 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
       },
       "/accounts/me" : {
         "options" : {
-          "consumes" : ["application/json"],
-          "produces" : ["application/json"],
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
           "responses" : {
             "200" : {
               "description" : "200 response",
@@ -101,7 +101,7 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
           }
         },
         "x-amazon-apigateway-any-method" : {
-          "produces" : ["application/json"],
+          "produces" : [ "application/json" ],
           "responses" : {
             "200" : {
               "description" : "200 response",
@@ -111,8 +111,602 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
             }
           },
           "x-amazon-apigateway-integration" : {
-            "httpMethod" : "POST",
             "uri" : "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:025810692662:function:iScore-API/invocations",
+            "httpMethod" : "POST",
+            "responses" : {
+              "default" : {
+                "statusCode" : "200"
+              }
+            },
+            "passthroughBehavior" : "when_no_match",
+            "contentHandling" : "CONVERT_TO_TEXT",
+            "type" : "aws_proxy"
+          }
+        }
+      },
+      "/complete" : {
+        "options" : {
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              },
+              "headers" : {
+                "Access-Control-Allow-Origin" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Methods" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Headers" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "responses" : {
+              "default" : {
+                "statusCode" : "200",
+                "responseParameters" : {
+                  "method.response.header.Access-Control-Allow-Methods" : "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                  "method.response.header.Access-Control-Allow-Headers" : "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'",
+                  "method.response.header.Access-Control-Allow-Origin" : "'*'"
+                }
+              }
+            },
+            "requestTemplates" : {
+              "application/json" : "{\"statusCode\": 200}"
+            },
+            "passthroughBehavior" : "when_no_match",
+            "type" : "mock"
+          }
+        },
+        "x-amazon-apigateway-any-method" : {
+          "produces" : [ "application/json" ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "uri" : "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:025810692662:function:iScore-API/invocations",
+            "httpMethod" : "POST",
+            "responses" : {
+              "default" : {
+                "statusCode" : "200"
+              }
+            },
+            "passthroughBehavior" : "when_no_match",
+            "contentHandling" : "CONVERT_TO_TEXT",
+            "type" : "aws_proxy"
+          }
+        }
+      },
+      "/countries/all" : {
+        "x-amazon-apigateway-any-method" : {
+          "produces" : [ "application/json" ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "uri" : "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:025810692662:function:iScore-API/invocations",
+            "httpMethod" : "POST",
+            "responses" : {
+              "default" : {
+                "statusCode" : "200"
+              }
+            },
+            "passthroughBehavior" : "when_no_match",
+            "contentHandling" : "CONVERT_TO_TEXT",
+            "type" : "aws_proxy"
+          }
+        }
+      },
+      "/countries/{countryName}" : {
+        "options" : {
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "name" : "countryName",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              },
+              "headers" : {
+                "Access-Control-Allow-Origin" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Methods" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Headers" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "responses" : {
+              "default" : {
+                "statusCode" : "200",
+                "responseParameters" : {
+                  "method.response.header.Access-Control-Allow-Methods" : "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                  "method.response.header.Access-Control-Allow-Headers" : "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'",
+                  "method.response.header.Access-Control-Allow-Origin" : "'*'"
+                }
+              }
+            },
+            "requestTemplates" : {
+              "application/json" : "{\"statusCode\": 200}"
+            },
+            "passthroughBehavior" : "when_no_match",
+            "type" : "mock"
+          }
+        }
+      },
+      "/countries/{countryName}/cities" : {
+        "options" : {
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "name" : "countryName",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              },
+              "headers" : {
+                "Access-Control-Allow-Origin" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Methods" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Headers" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "responses" : {
+              "default" : {
+                "statusCode" : "200",
+                "responseParameters" : {
+                  "method.response.header.Access-Control-Allow-Methods" : "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                  "method.response.header.Access-Control-Allow-Headers" : "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'",
+                  "method.response.header.Access-Control-Allow-Origin" : "'*'"
+                }
+              }
+            },
+            "requestTemplates" : {
+              "application/json" : "{\"statusCode\": 200}"
+            },
+            "passthroughBehavior" : "when_no_match",
+            "type" : "mock"
+          }
+        },
+        "x-amazon-apigateway-any-method" : {
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "name" : "countryName",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "uri" : "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:025810692662:function:iScore-API/invocations",
+            "httpMethod" : "POST",
+            "responses" : {
+              "default" : {
+                "statusCode" : "200"
+              }
+            },
+            "passthroughBehavior" : "when_no_match",
+            "contentHandling" : "CONVERT_TO_TEXT",
+            "type" : "aws_proxy"
+          }
+        }
+      },
+      "/countries/{countryName}/cities/{cityname}" : {
+        "options" : {
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "name" : "countryName",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          }, {
+            "name" : "cityname",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              },
+              "headers" : {
+                "Access-Control-Allow-Origin" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Methods" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Headers" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "responses" : {
+              "default" : {
+                "statusCode" : "200",
+                "responseParameters" : {
+                  "method.response.header.Access-Control-Allow-Methods" : "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                  "method.response.header.Access-Control-Allow-Headers" : "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'",
+                  "method.response.header.Access-Control-Allow-Origin" : "'*'"
+                }
+              }
+            },
+            "requestTemplates" : {
+              "application/json" : "{\"statusCode\": 200}"
+            },
+            "passthroughBehavior" : "when_no_match",
+            "type" : "mock"
+          }
+        },
+        "x-amazon-apigateway-any-method" : {
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "name" : "cityname",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          }, {
+            "name" : "countryName",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "uri" : "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:025810692662:function:iScore-API/invocations",
+            "httpMethod" : "POST",
+            "responses" : {
+              "default" : {
+                "statusCode" : "200"
+              }
+            },
+            "passthroughBehavior" : "when_no_match",
+            "contentHandling" : "CONVERT_TO_TEXT",
+            "type" : "aws_proxy"
+          }
+        }
+      },
+      "/countries/{countryName}/cities/{cityname}/{activityname}" : {
+        "options" : {
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "name" : "countryName",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          }, {
+            "name" : "cityname",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          }, {
+            "name" : "activityname",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              },
+              "headers" : {
+                "Access-Control-Allow-Origin" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Methods" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Headers" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "responses" : {
+              "default" : {
+                "statusCode" : "200",
+                "responseParameters" : {
+                  "method.response.header.Access-Control-Allow-Methods" : "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                  "method.response.header.Access-Control-Allow-Headers" : "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'",
+                  "method.response.header.Access-Control-Allow-Origin" : "'*'"
+                }
+              }
+            },
+            "requestTemplates" : {
+              "application/json" : "{\"statusCode\": 200}"
+            },
+            "passthroughBehavior" : "when_no_match",
+            "type" : "mock"
+          }
+        },
+        "x-amazon-apigateway-any-method" : {
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "name" : "cityname",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          }, {
+            "name" : "activityname",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          }, {
+            "name" : "countryName",
+            "in" : "path",
+            "required" : true,
+            "type" : "string"
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "uri" : "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:025810692662:function:iScore-API/invocations",
+            "httpMethod" : "POST",
+            "responses" : {
+              "default" : {
+                "statusCode" : "200"
+              }
+            },
+            "passthroughBehavior" : "when_no_match",
+            "contentHandling" : "CONVERT_TO_TEXT",
+            "type" : "aws_proxy"
+          }
+        }
+      },
+      "/location" : {
+        "options" : {
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              },
+              "headers" : {
+                "Access-Control-Allow-Origin" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Methods" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Headers" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "responses" : {
+              "default" : {
+                "statusCode" : "200",
+                "responseParameters" : {
+                  "method.response.header.Access-Control-Allow-Methods" : "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                  "method.response.header.Access-Control-Allow-Headers" : "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'",
+                  "method.response.header.Access-Control-Allow-Origin" : "'*'"
+                }
+              }
+            },
+            "requestTemplates" : {
+              "application/json" : "{\"statusCode\": 200}"
+            },
+            "passthroughBehavior" : "when_no_match",
+            "type" : "mock"
+          }
+        },
+        "x-amazon-apigateway-any-method" : {
+          "produces" : [ "application/json" ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "uri" : "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:025810692662:function:iScore-API/invocations",
+            "httpMethod" : "POST",
+            "responses" : {
+              "default" : {
+                "statusCode" : "200"
+              }
+            },
+            "passthroughBehavior" : "when_no_match",
+            "contentHandling" : "CONVERT_TO_TEXT",
+            "type" : "aws_proxy"
+          }
+        }
+      },
+      "/personalise" : {
+        "options" : {
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              },
+              "headers" : {
+                "Access-Control-Allow-Origin" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Methods" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Headers" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "responses" : {
+              "default" : {
+                "statusCode" : "200",
+                "responseParameters" : {
+                  "method.response.header.Access-Control-Allow-Methods" : "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                  "method.response.header.Access-Control-Allow-Headers" : "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'",
+                  "method.response.header.Access-Control-Allow-Origin" : "'*'"
+                }
+              }
+            },
+            "requestTemplates" : {
+              "application/json" : "{\"statusCode\": 200}"
+            },
+            "passthroughBehavior" : "when_no_match",
+            "type" : "mock"
+          }
+        },
+        "x-amazon-apigateway-any-method" : {
+          "produces" : [ "application/json" ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "uri" : "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:025810692662:function:iScore-API/invocations",
+            "httpMethod" : "POST",
+            "responses" : {
+              "default" : {
+                "statusCode" : "200"
+              }
+            },
+            "passthroughBehavior" : "when_no_match",
+            "contentHandling" : "CONVERT_TO_TEXT",
+            "type" : "aws_proxy"
+          }
+        }
+      },
+      "/upload" : {
+        "options" : {
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              },
+              "headers" : {
+                "Access-Control-Allow-Origin" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Methods" : {
+                  "type" : "string"
+                },
+                "Access-Control-Allow-Headers" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "responses" : {
+              "default" : {
+                "statusCode" : "200",
+                "responseParameters" : {
+                  "method.response.header.Access-Control-Allow-Methods" : "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                  "method.response.header.Access-Control-Allow-Headers" : "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'",
+                  "method.response.header.Access-Control-Allow-Origin" : "'*'"
+                }
+              }
+            },
+            "requestTemplates" : {
+              "application/json" : "{\"statusCode\": 200}"
+            },
+            "passthroughBehavior" : "when_no_match",
+            "type" : "mock"
+          }
+        },
+        "x-amazon-apigateway-any-method" : {
+          "produces" : [ "application/json" ],
+          "responses" : {
+            "200" : {
+              "description" : "200 response",
+              "schema" : {
+                "$ref" : "#/definitions/Empty"
+              }
+            }
+          },
+          "x-amazon-apigateway-integration" : {
+            "uri" : "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:025810692662:function:iScore-API/invocations",
+            "httpMethod" : "POST",
             "responses" : {
               "default" : {
                 "statusCode" : "200"
@@ -126,7 +720,7 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
       },
       "/verify" : {
         "x-amazon-apigateway-any-method" : {
-          "produces" : ["application/json"],
+          "produces" : [ "application/json" ],
           "responses" : {
             "200" : {
               "description" : "200 response",
@@ -136,8 +730,8 @@ resource "aws_api_gateway_rest_api" "iScore-gateway" {
             }
           },
           "x-amazon-apigateway-integration" : {
-            "httpMethod" : "POST",
             "uri" : "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:025810692662:function:iScore-API/invocations",
+            "httpMethod" : "POST",
             "responses" : {
               "default" : {
                 "statusCode" : "200"
